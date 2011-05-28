@@ -24,22 +24,16 @@ public class HealthAdvicer extends Activity {
 			public void onClick(View v) {
 				Double weight = getValue(R.id.weight);
 				Double height = getValue(R.id.height);
-				Integer age = new Integer(((EditText) findViewById(R.id.age))
-						.getText().toString());
+				Integer age = new Integer(((EditText) findViewById(R.id.age)).getText().toString());
 
 				RadioGroup gender = (RadioGroup) findViewById(R.id.gender);
-				RadioButton selectedGender = (RadioButton) findViewById(gender
-						.getCheckedRadioButtonId());
+				RadioButton selectedGender = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
 
-				Gender.valueOf((String)selectedGender.getText()).calculateBMR(weight, height, age);
-				Double bmr_index = Calculator.calculateBMR(
-						selectedGender.getText(), weight, height, age);
-				((TextView) findViewById(R.id.bmi_index)).setText(Calculator
-						.calculateBMI(weight, height).toString());
-				((TextView) findViewById(R.id.bmr_index)).setText(bmr_index
-						.toString());
-				findViewById(R.id.linearLayout3).setVisibility(
-						LinearLayout.VISIBLE);
+				Double bmr = Gender.valueOf((String)selectedGender.getText()).calculateBMR(weight, height, age);
+				Double bmi = weight / (Math.pow(height/100, 2));
+				((TextView) findViewById(R.id.bmi_index)).setText(bmi.toString());
+				((TextView) findViewById(R.id.bmr_index)).setText(bmr.toString());
+				findViewById(R.id.linearLayout3).setVisibility(LinearLayout.VISIBLE);
 			}
 
 			private Double getValue(int id) {
